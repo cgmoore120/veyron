@@ -17,11 +17,13 @@ Jeweler::Tasks.new do |gem|
   gem.name = "veyron"
   gem.homepage = "http://github.com/cgmoore120/veyron"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{From 0 to development in ~20 mins}
+  gem.description = %Q{}
   gem.email = "chris@cloudspace.com"
   gem.authors = ["Chris Moore"]
   # dependencies defined in Gemfile
+  gem.add_dependency "vagrant"
+  gem.add_dependency "highline"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
