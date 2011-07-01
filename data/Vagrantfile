@@ -1,0 +1,25 @@
+Vagrant::Config.run do |config|
+  config.vm.box = "ubuntu-maverick-64"
+  config.vm.box_url = "http://mathie-vagrant-boxes.s3.amazonaws.com/maverick64.box"
+
+  config.vm.define :$PROJECT_NAME do |$PROJECT_NAME|
+    $PROJECT_NAME.vm.customize do |vm|
+      vm.memory_size = 1024
+    end
+
+    $PROJECT_NAME.vm.network("33.33.33.33")
+
+    $PROJECT_NAME.vm.share_folder("$PROJECT_NAME", "/srv/$PROJECT_NAME", "../")
+
+    $PROJECT_NAME.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = "../data/cookbooks"
+      chef.roles_path = "../data/roles"
+
+      chef.add_recipe("apt")
+      chef.add_recipe("apparmor")
+      chef.add_recipe("mysql::server")
+      chef.add_recipe("ruby1.9")
+      chef.add_recipe("bundler")
+    end
+  end
+end

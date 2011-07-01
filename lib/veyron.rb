@@ -1,15 +1,29 @@
 require 'net/http'
 require 'highline/import'
+require "trollop"
 require 'fileutils'
 
 class Veyron
   
   attr_accessor :project_dir, :project_name, :github_username, :visibility, :veyron_dir
   
-  def initialize
+  def initialize(opts)
     @veyron_dir = File.expand_path(File.dirname(__FILE__))
-    get_user_input
-    create_repo
+    puts opts.inspect
+    puts @veyron_dir.inspect
+    if opts[:new] && opts[:clone]
+      say "Error: Cannot make new project AND clone one, please pick one" 
+      return
+    end
+    
+    
+    new_project if opts[:new] && !opts[:clone]
+    clone(opts[:clone]) if !opts[:clone].empty? && !opts[:new]
+  end
+  
+  def new_project
+    get_user_input_new
+    # create_repo
     say("**************************************************************")
     say("               THIS IS GOING TO TAKE ABOUT 20 MINS\n")
     say("                       GO MAKE A SANDWICH\n")
@@ -18,8 +32,8 @@ class Veyron
     create_rails_project
     say("CREATING VAGRANT DIRECTORIES AND COPYING COOKBOOKS")
     vagrant_setup
-    say("MAKING INITIAL COMMIT TO GITHUB")
-    initial_commit
+    # say("MAKING INITIAL COMMIT TO GITHUB")
+    # initial_commit
     say("**************************************************************")
     say("                       VAGRANT UP\n")
     say("**************************************************************")
@@ -34,7 +48,11 @@ class Veyron
     say("**************************************************************")
   end
   
-  def get_user_input
+  def clone(repo)
+    
+  end
+  
+  def get_user_input_new
     @project_dir = ask("Where do you keep your projects? ex. /Users/chris/Projects: ")
     @project_name = ask("Project Name ex. my_new_project: ")
     @project_name = @project_name.squeeze.strip.gsub(" ", "_").downcase
@@ -103,5 +121,3 @@ class Veyron
     system("vagrant ssh #{@project_name}")
   end
 end
-
-Veyron.new

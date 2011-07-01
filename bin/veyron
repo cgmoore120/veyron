@@ -1,0 +1,12 @@
+#! /usr/bin/env ruby
+
+require "veyron"
+
+
+opts = Trollop::options do
+  opt :new, "Start from scratch"
+  opt :clone, "Clone a repo", :type => :string
+end
+
+Veyron.new(opts)
+

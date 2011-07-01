@@ -15,6 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "veyron"
+  gem.executables = "veyron"
   gem.homepage = "http://github.com/cgmoore120/veyron"
   gem.license = "MIT"
   gem.summary = %Q{From 0 to development in ~20 mins}
@@ -24,6 +25,9 @@ Jeweler::Tasks.new do |gem|
   # dependencies defined in Gemfile
   gem.add_dependency "vagrant"
   gem.add_dependency "highline"
+  gem.add_dependency "trollop"
+  gem.add_dependency "rails"
+  gem.files.include "data"
 end
 Jeweler::RubygemsDotOrgTasks.new
 
