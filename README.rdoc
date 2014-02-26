@@ -1,6 +1,6 @@
 = veyron
 
-From 0 to development in ~20 mins
+From 0 to development in ~20 mins or less
 
 == Contributing to veyron
  
